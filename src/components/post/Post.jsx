@@ -1,5 +1,6 @@
 import "./post.css"
 import SKI from "../../assets/skiing.jpeg"
+import { Link } from "react-router-dom"
 
 export default function Post() {
   return (
@@ -10,7 +11,9 @@ export default function Post() {
                 <span className="postCat">Music</span>
                 <span className="postCat">Life</span>
             </div>
-            <span className="postTitle">Lorem ipsum dolor, sit amet !</span>
+            <span className="postTitle">
+              <Link className="link" to="/post/:postId">Lorem ipsum dolor, sit amet !</Link>
+            </span>
             <hr/>
             <span className="postDate">1 hour ago</span>
         </div>
