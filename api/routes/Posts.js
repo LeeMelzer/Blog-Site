@@ -2,6 +2,9 @@ const router = require("express").Router();
 const User = require("../models/User");
 const Post = require("../models/Post");
 
+var cors = require('cors');
+router.use(cors());
+
 //CREATE POST
 router.post("/", async (req, res) => {
     const newPost = new Post(req.body);

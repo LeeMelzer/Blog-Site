@@ -1,38 +1,42 @@
-import "./singlePost.css"
-import SNOW from "../../assets/snowy.jpg"
+import "./singlePost.css";
+import SNOW from "../../assets/snowy.jpg";
+import { useLocation } from "react-router-dom";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 export default function SinglePost() {
+    const location = useLocation();
+    const path = location.pathname.split("/")[2];
+    const [post, setPost] = useState({})
+
+    useEffect(()=>{
+        const getPost = async ()=>{
+            const url = "http://localhost:5000/api/posts/"
+            const res = await axios.get(url + path);
+            setPost(res.data)
+        };
+        getPost();
+    },[path])
+    
   return (
     <div className="singlePost">
         <div className="singlePostWrapper">
-            <img className="singlePostImg" src={SNOW}/>
+            {post.photo && (
+                <img className="singlePostImg" src={post.photo}/>
+            )}
             <h1 className="singlePostTitle">
-                Lorem ipsum dolor sit, amet.
+                {post.title}
                 <div className="singlePostEdit">
                 <i className="singlePostIcon fa-regular fa-pen-to-square"></i>
                 <i className="singlePostIcon fa-regular fa-trash-can"></i>
                 </div>
             </h1>
             <div className="singlePostInfo">
-                <span className="singlePostAuthor">Author: <b>Lee</b></span>
-                <span className="singlePostDate">1 hour ago</span>
+                <span className="singlePostAuthor">Author: <b>{post.username}</b></span>
+                <span className="singlePostDate">{new Date(post.createdAt).toDateString()}</span>
             </div>
             <p className="singlePostDesc">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Est, possimus quod explicabo illo dignissimos exercitationem repellat odio temporibus reiciendis laborum quasi amet enim vero cum perferendis eos sequi, officia expedita?
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Est, possimus quod explicabo illo dignissimos exercitationem repellat odio temporibus reiciendis laborum quasi amet enim vero cum perferendis eos sequi, officia expedita?
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Est, possimus quod explicabo illo dignissimos exercitationem repellat odio temporibus reiciendis laborum quasi amet enim vero cum perferendis eos sequi, officia expedita?
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Est, possimus quod explicabo illo dignissimos exercitationem repellat odio temporibus reiciendis laborum quasi amet enim vero cum perferendis eos sequi, officia expedita?
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Est, possimus quod explicabo illo dignissimos exercitationem repellat odio temporibus reiciendis laborum quasi amet enim vero cum perferendis eos sequi, officia expedita?
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Est, possimus quod explicabo illo dignissimos exercitationem repellat odio temporibus reiciendis laborum quasi amet enim vero cum perferendis eos sequi, officia expedita?
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Est, possimus quod explicabo illo dignissimos exercitationem repellat odio temporibus reiciendis laborum quasi amet enim vero cum perferendis eos sequi, officia expedita?
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Est, possimus quod explicabo illo dignissimos exercitationem repellat odio temporibus reiciendis laborum quasi amet enim vero cum perferendis eos sequi, officia expedita?
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Est, possimus quod explicabo illo dignissimos exercitationem repellat odio temporibus reiciendis laborum quasi amet enim vero cum perferendis eos sequi, officia expedita?
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Est, possimus quod explicabo illo dignissimos exercitationem repellat odio temporibus reiciendis laborum quasi amet enim vero cum perferendis eos sequi, officia expedita?
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Est, possimus quod explicabo illo dignissimos exercitationem repellat odio temporibus reiciendis laborum quasi amet enim vero cum perferendis eos sequi, officia expedita?
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Est, possimus quod explicabo illo dignissimos exercitationem repellat odio temporibus reiciendis laborum quasi amet enim vero cum perferendis eos sequi, officia expedita?
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Est, possimus quod explicabo illo dignissimos exercitationem repellat odio temporibus reiciendis laborum quasi amet enim vero cum perferendis eos sequi, officia expedita?
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Est, possimus quod explicabo illo dignissimos exercitationem repellat odio temporibus reiciendis laborum quasi amet enim vero cum perferendis eos sequi, officia expedita?
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Est, possimus quod explicabo illo dignissimos exercitationem repellat odio temporibus reiciendis laborum quasi amet enim vero cum perferendis eos sequi, officia expedita?
+                {post.desc}
             </p>
         </div>
     </div>

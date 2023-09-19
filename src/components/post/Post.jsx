@@ -2,25 +2,26 @@ import "./post.css"
 import SKI from "../../assets/skiing.jpeg"
 import { Link } from "react-router-dom"
 
-export default function Post() {
+export default function Post({post}) {
   return (
     <div className="post">
-        <img className="postImg" src={SKI}/>
+      {post.photo && (
+        <img className="postImg" src={post.photo}/>
+      )}
         <div className="postInfo">
-            <div className="postCats">
-                <span className="postCat">Music</span>
-                <span className="postCat">Life</span>
+            <div className="postCats"> {
+              post.categories.map(c=>(
+                <span className="postCat">{c.name}</span>
+              ))
+            }
             </div>
             <span className="postTitle">
-              <Link className="link" to="/post/:postId">Lorem ipsum dolor, sit amet !</Link>
+              <Link className="link" to={`/post/${post._id}`}>{post.title}</Link>
             </span>
             <hr/>
-            <span className="postDate">1 hour ago</span>
+            <span className="postDate">{new Date(post.createdAt).toDateString()}</span>
         </div>
-        <p className="postDesc">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod, sapiente quibusdam quam iusto fugit cumque sunt dicta tempora necessitatibus. 
-        Obcaecati fugit officia cupiditate sequi exercitationem vitae, repellendus tempora accusantium! Hic. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod, sapiente quibusdam quam iusto fugit cumque sunt dicta tempora necessitatibus. 
-        Obcaecati fugit officia cupiditate sequi exercitationem vitae, repellendus tempora accusantium! Hic.Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod, sapiente quibusdam quam iusto fugit cumque sunt dicta tempora necessitatibus. 
-        Obcaecati fugit officia cupiditate sequi exercitationem vitae, repellendus tempora accusantium! Hic.</p>
+        <p className="postDesc">{post.desc}</p>
     </div>
   )
 }

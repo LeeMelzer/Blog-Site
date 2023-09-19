@@ -3,6 +3,9 @@ const User = require("../models/User");
 const Post = require("../models/Post");
 const bcrypt = require("bcrypt");
 
+var cors = require('cors');
+router.use(cors());
+
 //UPDATE
 router.put("/:id", async (req, res) => {
     if(req.body.userId === req.params.id) {
